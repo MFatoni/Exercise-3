@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mohammad Fatoni</title>
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="container-fluid">
+		<span class="text-center"><h3>DATA WILAYAH</h3></span><br>
+		<small><i>Tunggu 5 Detik Agar DataTable Di Load (Pastikan Telah Terkoneksi Dengan Internet)</i></small>
+		<div class="table-responsive-lg"><br>
+			<table class="table table-bordered" id="sort">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Nama</th>
+						<th>Rotasi</th>
+						<th>Orbit</th>
+						<th>Diameter</th>
+						<th>Iklim</th>
+						<th>Gravitasi</th>
+						<th>Pemandangan</th>
+						<th>Ketinggian(MDPL)</th>
+						<th>Populasi</th>
+					</tr></thead>
+					<tbody id="isi">
+						<script type="text/javascript">
+							var request = new XMLHttpRequest()
+							var no=0;
+							request.open('GET', 'https://swapi.co/api/planets/', true)
+							request.onload = function() {
+								var data = JSON.parse(this.response)
+								for (var i = 0; i <= data.results.length - 1; i++) {
+									no++;
+									document.getElementById('isi').innerHTML+=
+									"<tr><td class='text-center'>"+
+									no+"</td><td>"+
+									data.results[i].name+"</td><td class='text-right'>"+
+									data.results[i].rotation_period+"</td><td class='text-right'>"+
+									data.results[i].orbital_period+"</td><td class='text-right'>"+
+									data.results[i].diameter+"</td><td>"+
+									data.results[i].climate+"</td><td class='text-right'>"+
+									data.results[i].gravity+"</td><td>"+
+									data.results[i].terrain+"</td><td class='text-right'>"+
+									data.results[i].surface_water+"</td><td class='text-right'>"+
+									data.results[i].population+"</td></tr>";
+								}
+							}
+							request.send()
+						</script>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+	<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+			setInterval("$('#sort').DataTable()",5000);
+		} );
+	</script>
+	</html>
